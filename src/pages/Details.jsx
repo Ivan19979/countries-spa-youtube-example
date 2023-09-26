@@ -2,36 +2,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 
 import { Button } from "../components/Button";
-import { Info } from "../components/Info";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectDetails } from "../store/details/details-selector";
-import {
-  loadCountryByName,
-  clearDetails,
-} from "../store/details/details-actions";
+import { CountryDetails } from "../feature/details/CountryDetails";
 
 export const Details = () => {
-  const dispatch = useDispatch();
   const { name } = useParams();
   const navigate = useNavigate();
-  const { currentCountry, err, status } = useSelector(selectDetails);
-
-  useEffect(() => {
-    dispatch(loadCountryByName(name));
-    return () => {
-      dispatch(clearDetails());
-    };
-  }, [name, dispatch]);
 
   return (
     <div>
       <Button onClick={() => navigate(-1)}>
         <IoArrowBack /> Back
       </Button>
-      {status === "loading" && <h2>Loading ...</h2>}
-      {err && <h2>{err}</h2>}
-      {currentCountry && <Info push={navigate} {...currentCountry} />}
+      <CountryDetails name={name} navigate={navigate} />
     </div>
   );
 };

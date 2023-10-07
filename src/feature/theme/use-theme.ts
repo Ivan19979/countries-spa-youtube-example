@@ -1,10 +1,11 @@
-import { setTheme } from "./theme-slice";
+import { Theme, setTheme } from "./theme-slice";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
+import { selectTheme } from "./theme-selectors";
 
-export const useTheme = () => {
+export const useTheme = (): [Theme, () => void] => {
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.theme);
+  const theme = useSelector(selectTheme);
 
   const toggleTheme = () => {
     dispatch(setTheme(theme === "dark" ? "light" : "dark"));

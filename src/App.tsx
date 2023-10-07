@@ -7,13 +7,14 @@ import { HomePage } from "./pages/HomePage";
 import { Details } from "./pages/Details";
 import { NotFound } from "./pages/NotFound";
 
+
 function App() {
   return (
     <>
       <Header />
       <Main>
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/country/:name" element={<Details />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
